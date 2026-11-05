@@ -1,0 +1,21 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+export const getStaticPaths = (async () => {
+	const postures = await getCollection('posture');
+
+	return postures.map((posture: CollectionEntry<'posture'>) => ({
+		params: { slug: posture.data.title.toLowerCase().replace(/\s/, '-') },
+		props: posture,
+	}));
+}) satisfies GetStaticPaths;
+type Props = CollectionEntry<'posture'>;
+const posture = Astro.props;
+const { Content } = await render(posture);
+---
+
+<Layout>
+	<h1>{posture.data.title}</h1>
+	<Content />
+</Layout>

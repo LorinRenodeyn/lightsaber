@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { toSlug } from '../../utils';
+
+const renderer = async (posture) => {
+	const { Content } = await render(posture);
+	return {
+		Content,
+		id: posture.id,
+		slug: toSlug(posture.data.title),
+		title: posture.data.title,
+	};
+};
+const sorter = (a, b) => a.data.title.localeCompare(b.data.title, 'en');
+
+const postures = await getCollection('posture');
+const sortedPostures = postures.toSorted(sorter);
+const renderedPostures = await Promise.all(sortedPostures.map(renderer));
+---
+
+<Layout>
+	<h1>Postures</h1>
+
+	<ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-5">
+		{renderedPostures.map((posture) => {
+			const { Content } = posture;
+			return (
+				<li>
+					<a class="card" href={`/postures/${posture.slug}`}>
+						<p class="font-bold text-lg">{posture.title}</p>
+						<div class="text-sm italic">
+							<Content />
+						</div>
+					</a>
+				</li>
+			);
+		})}
+	</ul>
+</Layout>

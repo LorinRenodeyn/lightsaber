@@ -1,0 +1,22 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings":
+	{
+		"LSP":
+		{
+			"LSP-eslint":
+			{
+				"enabled": false
+			},
+			"LSP-typescript":
+			{
+				"enabled": false
+			}
+		}
+	}
+}

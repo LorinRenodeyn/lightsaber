@@ -1,23 +1,90 @@
+---
+import '../styles/global.css';
+import { isOnPath } from '../utils';
+
+interface Props {
+	hideNav?: boolean;
+}
+const { hideNav } = Astro.props;
+
+const links = [
+	{ href: '/', label: 'Home' },
+	{ href: '/terms-and-concepts', label: 'Terms & Concepts' },
+	{ href: '/postures', label: 'Postures' },
+	{ href: '/defence', label: 'Defence' },
+];
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+		<link rel="icon" href="/favicon.ico">
+		<meta name="generator" content={Astro.generator}>
+		<title>Lightsaber Holocron | De Hallebardiers</title>
+		<link rel="sitemap" href="/sitemap-index.xml">
 	</head>
-	<body>
-		<slot />
+	<body
+		class="bg-neutral-950 min-h-screen flex flex-col grow-1 text-white items-center justify-center px-5"
+	>
+		<nav
+			class="bg-neutral-950 transition-all duration-300 inert:opacity-0 grow-0 sticky top-0 mb-10 py-3 w-full max-w-[80ch]"
+			inert={hideNav}
+		>
+			<ul class="flex gap-4">
+				{links.map((link) => {
+					const isCurrent = isOnPath(Astro.url.pathname, link.href);
+					return (
+						<li>
+							<a
+								class="block px-3 py-2 leading-[2] text-shadow-hallebardiers-bright/40 hover:text-shadow-lg aria-current:italic aria-current:text-shadow-hallebardiers/40 aria-current:text-hallebardiers-bright aria-current:text-shadow-lg navlink"
+								href={link.href}
+								aria-current={isCurrent}
+							>
+								{link.label}
+							</a>
+						</li>
+					);
+				})}
+			</ul>
+		</nav>
+		<main class="max-w-[80ch] grow-1">
+			<slot />
+		</main>
 	</body>
 </html>
 
 <style>
+	@import "tailwindcss";
+
 	html,
 	body {
 		margin: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	main {
+		view-transition-name: content;
+	}
+
+	.navlink {
+		position: relative;
+
+		&::after {
+			content: "";
+			transform: scaleX(0);
+			@apply block bottom-0 left-0 bg-(--hallebardiers-accent) h-[2px] w-full origin-center transition-all duration-300;
+		}
+		&:hover {
+			&:not([aria-current="true"]) {
+				@apply text-(--hallebardiers-accent);
+			}
+			&::after {
+				transform: scaleX(1);
+			}
+		}
 	}
 </style>
