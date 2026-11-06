@@ -1,5 +1,13 @@
 ---
-import { Check, X } from '@lucide/astro';
+import {
+	ArrowDown,
+	ArrowDownLeft,
+	ArrowDownRight,
+	Check,
+	X,
+} from '@lucide/astro';
+import DefenceCard from '../components/DefenceCard.astro';
+import Lightsaber from '../components/Lightsaber.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -23,28 +31,30 @@ import Layout from '../layouts/Layout.astro';
 	</ul>
 
 	<h2>Blade clash directions</h2>
-	<ul class="list-none flex gap-3 justify-around mt-4">
-		<li class="card">
-			<p class="font-bold mb-3">Right angle</p>
-			<p class="flex gap-2 text-sm items-center">
-				<Check stroke-width={4} class="text-green-400" width={32} />
-				Good: stops a strike head-on
-			</p>
-		</li>
-		<li class="card">
-			<p class="font-bold mb-3">Toward point (defender viewpoint)</p>
-			<p class="flex gap-2 text-sm items-center">
-				<Check stroke-width={4} class="text-green-400" width={32} />
-				Good: the opponent's blade will slide toward the point
-			</p>
-		</li>
-		<li class="card">
-			<p class="font-bold mb-3">Toward handle (defender standpoint)</p>
-			<p class="flex gap-2 text-sm items-center">
-				<X class="text-red-400" stroke-width={4} width={32} />
-				Bad: the opponent's blade will slide toward your hilt, hitting
-				your hands
-			</p>
-		</li>
+	<ul class="list-none gap-5 grid md:grid-cols-2 mt-4">
+		<DefenceCard
+			title="Right angle"
+			description="Good: stops a strike head-on"
+			rating="good"
+			bladeColor="var(--color-green-600)"
+		>
+			<ArrowDown class="scale-200 text-red-400 glow" />
+		</DefenceCard>
+		<DefenceCard
+			title="Toward point (defender viewpoint)"
+			description="Good: the opponent's blade will slide toward the point and away from yours hands"
+			rating="good"
+			bladeColor="var(--color-green-600)"
+		>
+			<ArrowDownRight class="scale-200 text-red-400 glow" />
+		</DefenceCard>
+		<DefenceCard
+			title="Toward handle (defender standpoint)"
+			description="Bad: the opponent's blade will slide toward your hilt, hitting
+				your hands"
+			rating="bad"
+		>
+			<ArrowDownLeft class="scale-200 text-red-400 glow" />
+		</DefenceCard>
 	</ul>
 </Layout>

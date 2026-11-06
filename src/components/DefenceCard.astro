@@ -1,0 +1,39 @@
+---
+import { Check, X } from '@lucide/astro';
+import type { HTMLAttributes } from 'astro/types';
+import Lightsaber from './Lightsaber.astro';
+
+interface Props extends HTMLAttributes<'li'> {
+	rating: 'good' | 'bad';
+	title: string;
+	description: string;
+	bladeColor?: string;
+}
+const {
+	rating,
+	title,
+	description,
+	bladeColor = 'var(--color-hallebardiers)',
+	...rest
+} = Astro.props;
+---
+
+<li
+	class="card flex flex-col gap-3"
+	style={{ '--blade-color': bladeColor }}
+	{...rest}
+>
+	<p class="font-bold mb-3">{title}</p>
+	<div class="flex flex-col items-center">
+		<slot />
+		<Lightsaber />
+	</div>
+	<p class="flex gap-2 text-sm items-center">
+		{rating === 'good' ? (
+			<Check stroke-width={4} class="text-green-400" width={32} />
+		) : (
+			<X class="text-red-400" stroke-width={4} width={32} />
+		)}
+		{description}
+	</p>
+</li>
