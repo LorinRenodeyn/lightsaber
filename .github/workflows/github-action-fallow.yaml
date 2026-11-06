@@ -1,0 +1,31 @@
+name: Fallow
+
+on:
+	pull_request:
+
+permissions:
+	contents: read
+	checks: write # needed for the Fallow Check Run
+	pull-requests: write # needed for comment/review-comments
+	id-token: write # optional: post PR comments as the branded Fallow app
+
+jobs:
+	fallow:
+		runs-on: ubuntu-latest
+		steps:
+			- uses: actions/checkout@v4
+				with:
+					fetch-depth: 0 # best diff precision for --changed-since and hotspots
+			- uses: fallow-rs/fallow@v3
+				with:
+					command: audit
+					comment: true
+					review-comments: true
+			- uses: fallow-rs/fallow@v3
+				with:
+					command: health
+					score: true
+					trend: true
+					save-snapshot: true
+					hotspots: true
+					targets: true
