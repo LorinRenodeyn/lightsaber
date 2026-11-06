@@ -69,7 +69,8 @@
 @layer utilities {
 	.glow {
 		--shadow-size: 0 0 20px;
-		filter: drop-shadow(var(--shadow-size) var(--color-hallebardiers)) brightness(3);
+		filter: drop-shadow(var(--shadow-size) var(--color-hallebardiers))
+			brightness(3);
 	}
 }
 
@@ -83,6 +84,12 @@
 
 		&:hover {
 			@apply shadow-lg shadow-hallebardiers-bright;
+		}
+
+		@media screen and (hover: none) {
+			& {
+				@apply shadow-lg shadow-hallebardiers-bright;
+			}
 		}
 	}
 }
