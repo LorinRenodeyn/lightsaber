@@ -1,0 +1,22 @@
+---
+const { powerOff, rootClass = '', style } = Astro.props;
+
+const rootClasses = 'saber flex items-center ' + rootClass;
+const bladeClasses = powerOff
+	? '[--blade:var(--blade-color,_var(--color-hallebardiers))] blade w-0 bg-(--blade) h-2 glow rounded-tr-sm rounded-br-sm transition-all duration-300'
+	: '[--blade:var(--blade-color,_var(--color-hallebardiers))] blade w-50 bg-(--blade) h-2 glow rounded-tr-sm rounded-br-sm transition-all duration-300';
+---
+
+<div class={rootClasses} style={style}>
+	<div
+		class="hilt w-14 h-3 relative bg-repeat bg-linear-to-r from-neutral-400 from-40% to-50% to-neutral-800 bg-size-[4px_auto]"
+	>
+		<span
+			class="pommel h-4 w-2 block bg-neutral-600 absolute left-0 top-[50%] -translate-1/2 rounded-tl-sm rounded-bl-sm"
+		></span>
+		<span
+			class="emitter h-4 w-2 block bg-neutral-400 absolute right-0 top-[50%] z-1 skew-20 translate-x-1/2 -translate-y-1/2"
+		></span>
+	</div>
+	<div class={bladeClasses}></div>
+</div>
