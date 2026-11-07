@@ -17,6 +17,7 @@ export default defineConfig({
 	},
 	session: false,
 	site: 'https://lightsaber.lorin-renodeyn.workers.dev',
+	trailingSlash: 'never',
 
 	vite: {
 		plugins: [tailwindcss()],
