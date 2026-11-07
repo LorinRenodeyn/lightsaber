@@ -1,8 +1,7 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import { ChevronsLeft } from '@lucide/astro';
 import { toSlug } from '@utils';
 import type { GetStaticPaths } from 'astro';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 export const getStaticPaths = (async () => {
 	const postures = await getCollection('posture');
@@ -17,14 +16,7 @@ const posture = Astro.props;
 const { Content } = await render(posture);
 ---
 
-<Layout>
+<Layout showBreadCrumbs>
 	<h1>{posture.data.title}</h1>
 	<Content />
-	<a
-		class="mt-8 flex gap-2 text-hallebardiers-bright text-shadow-hallebardiers-bright/40 hover:text-shadow-lg hover:text-hallebardiers-accent focus:text-hallebardiers-accent"
-		href="/postures"
-	>
-		<ChevronsLeft />
-		Back to postures
-	</a>
 </Layout>
