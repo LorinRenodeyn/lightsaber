@@ -1,6 +1,6 @@
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { defineCollection } from 'astro:content';
 
 const posture = defineCollection({
 	loader: glob({ base: './src/content/postures', pattern: '**/*.{md,mdx}' }),
@@ -11,4 +11,17 @@ const posture = defineCollection({
 	},
 });
 
-export const collections = { posture };
+const coreConcept = defineCollection({
+	loader: glob({
+		base: './src/content/core-concepts',
+		pattern: '**/*.{md,mdx}',
+	}),
+	schema: (context) => {
+		return z.object({
+			summary: z.string(),
+			title: z.string(),
+		});
+	},
+});
+
+export const collections = { coreConcept, posture };
