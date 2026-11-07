@@ -1,0 +1,37 @@
+---
+import { ChevronsRight, Locate } from '@lucide/astro';
+
+const { pathname } = Astro.url;
+
+const segmentMapper = (
+	list: Array<{ slug: string; label: string }>,
+	segment: string,
+	i: number,
+) => {
+	const label = segment.replace(/-/gi, ' ');
+	if (i === 0) return [{ label: 'Home', slug: `/${segment}` }];
+	let prevSlug = list[i - 1].slug;
+	if (prevSlug === '/') prevSlug = '';
+	return list.concat({ label, slug: `${prevSlug}/${segment}` });
+};
+
+const crumbs =
+	pathname === '/' ? [] : pathname.split('/').reduce(segmentMapper, []);
+---
+
+<nav class="my-5 flex items-center gap-3 italic text-sm">
+	<Locate size={16} />
+	<ul class="flex gap-3">
+		{crumbs.map((crumb, idx, list) => (
+			<li class="flex gap-3 items-center">
+				<a
+					href={crumb.slug}
+					class="capitalize text-shadow-hallebardiers-bright/40"
+				>
+					{crumb.label}
+				</a>
+				{idx !== list.length - 1 && <ChevronsRight size={20} />}
+			</li>
+		))}
+	</ul>
+</nav>

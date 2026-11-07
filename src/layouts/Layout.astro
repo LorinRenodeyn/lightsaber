@@ -1,11 +1,13 @@
 ---
+import Breadcrumbs from '@components/Breadcrumbs.astro';
 import '../styles/global.css';
 import { isOnPath } from '../utils';
 
 interface Props {
 	hideNav?: boolean;
+	showBreadCrumbs?: boolean;
 }
-const { hideNav } = Astro.props;
+const { hideNav, showBreadCrumbs } = Astro.props;
 
 const links = [
 	{ href: '/', label: 'Home' },
@@ -53,6 +55,7 @@ const links = [
 			</ul>
 		</nav>
 		<main class="max-w-[80ch] grow-1 px-5 pb-5">
+			{showBreadCrumbs && <Breadcrumbs />}
 			<slot />
 		</main>
 	</body>

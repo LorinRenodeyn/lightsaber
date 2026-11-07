@@ -17,14 +17,6 @@ const concept = Astro.props;
 const { Content } = await render(concept);
 ---
 
-<Layout>
-	<div class="styleOverride">
-		<Content />
-	</div>
-	<style>
-		@import "tailwindcss";
-		.styleOverride ol {
-			@apply !list-decimal;
-		}
-	</style>
+<Layout showBreadCrumbs>
+	<Content />
 </Layout>
