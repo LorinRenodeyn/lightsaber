@@ -61,16 +61,39 @@
 		font-size: var(--text-lg);
 	}
 
+	h1,
+	h2,
+	h3,
+	h4 {
+		margin-block-end: 1em;
+	}
+
 	p:not(:last-child) {
-		font-size: var(--mbe-5);
+		margin-block-end: calc(var(--spacing) * 5);
+	}
+
+	a {
+		color: var(--color-hallebardiers-bright);
+
+		&:hover,
+		&:focus,
+		&:focus-within {
+			color: var(--color-hallebardiers-accent);
+		}
+	}
+
+	ol {
+		list-style: decimal;
+		margin-block-start: revert;
+		margin-block-end: revert;
+		padding-inline-start: revert;
 	}
 }
 
 @layer utilities {
 	.glow {
 		--shadow-size: 0 0 20px;
-		filter: drop-shadow(var(--shadow-size) var(--color-hallebardiers))
-			brightness(3);
+		filter: drop-shadow(var(--shadow-size) var(--color-hallebardiers)) brightness(3);
 	}
 }
 

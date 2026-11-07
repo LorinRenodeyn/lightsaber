@@ -1,0 +1,32 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { getChildPath } from '@utils';
+import { getCollection } from 'astro:content';
+
+const pagePath = Astro.url.pathname;
+
+const coreTechniques = await getCollection('coreConcept');
+const slugifiedTechniques = coreTechniques.map((tech) => ({
+	id: tech.id,
+	slug: getChildPath(tech.data.title, pagePath),
+	summary: tech.data.summary,
+	title: tech.data.title,
+}));
+---
+
+<Layout>
+	<h1>Core concepts</h1>
+	<ul class="grid gap-5 md:grid-cols-2">
+		{slugifiedTechniques.map((technique) => (
+			<li class="card">
+				<a class="block text-lg font-bold" href={technique.slug}>
+					{technique.title}
+				</a>
+				<p>{technique.summary}</p>
+				<a
+					href={technique.slug}
+				>{`Read more about ${technique.title}`}</a>
+			</li>
+		))}
+	</ul>
+</Layout>

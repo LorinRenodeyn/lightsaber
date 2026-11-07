@@ -11,11 +11,11 @@ export default defineConfig({
 	adapter: cloudflare({
 		imageService: { build: 'compile', runtime: 'cloudflare-binding' },
 	}),
-
 	integrations: [sitemap(), mdx()],
 	prefetch: {
 		prefetchAll: true,
 	},
+	session: false,
 	site: 'https://lightsaber.lorin-renodeyn.workers.dev',
 
 	vite: {
