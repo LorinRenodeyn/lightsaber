@@ -22,17 +22,20 @@ const renderedPostures = await Promise.all(sortedPostures.map(renderer));
 <Layout>
 	<h1>Postures</h1>
 
-	<ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-5">
+	<ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
 		{renderedPostures.map((posture) => {
 			const { Content } = posture;
 			return (
-				<li>
-					<a class="card" href={`/postures/${posture.slug}`}>
-						<p class="font-bold text-lg">{posture.title}</p>
-						<div class="text-sm italic">
-							<Content />
-						</div>
+				<li class="card">
+					<a
+						href={`/postures/${posture.slug}`}
+						class="font-bold text-lg block"
+					>
+						{posture.title}
 					</a>
+					<div class="text-sm italic">
+						<Content />
+					</div>
 				</li>
 			);
 		})}
