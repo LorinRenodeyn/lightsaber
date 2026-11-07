@@ -1,0 +1,30 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { toSlug } from '@utils';
+import type { GetStaticPaths } from 'astro';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+
+export const getStaticPaths = (async () => {
+	const coreConcepts = await getCollection('coreConcept');
+	return coreConcepts.map((concept: CollectionEntry<'coreConcept'>) => ({
+		params: { slug: toSlug(concept.data.title) },
+		props: concept,
+	}));
+}) satisfies GetStaticPaths;
+
+type Props = CollectionEntry<'coreConcept'>;
+const concept = Astro.props;
+const { Content } = await render(concept);
+---
+
+<Layout>
+	<div class="styleOverride">
+		<Content />
+	</div>
+	<style>
+		@import "tailwindcss";
+		.styleOverride ol {
+			@apply !list-decimal;
+		}
+	</style>
+</Layout>

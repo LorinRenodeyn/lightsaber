@@ -1,11 +1,11 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '@layouts/Layout.astro';
 ---
 
 <Layout>
 	<h1>Terms & Concepts</h1>
 
-	<h2 class="mt-3">The 3 Main Rules</h2>
+	<h2>The 3 Main Rules</h2>
 	<ul
 		class="text-hallebardiers italic leading-[2] gap-5 text-lg glow justify-center"
 	>
@@ -17,18 +17,22 @@ import Layout from '../layouts/Layout.astro';
 	<h2 class="mt-8">How to achieve them</h2>
 	<div class="mt-3 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
 		<article class="card">
-			<h3>The 4 states of a duel</h3>
+			<a href="/terms-and-concepts/duel-states"
+				><h3>The 4 states of a duel</h3></a
+			>
 			<p>
 				A duel can consist of several states that alternate:
 				<span class="italic">Lead, Follow, Reversal and Droid</span>.
 				Not all of the states need to occur in a single duel.
 			</p>
-			<a href="/terms-and-concepts/duel-states"
+			<a class="block mt-3" href="/terms-and-concepts/duel-states"
 				>Read more about the duel states</a
 			>
 		</article>
 		<article class="card">
-			<h3>The 5 core concepts</h3>
+			<a href="/terms-and-concepts/core-concepts"
+				><h3>The 5 core concepts</h3></a
+			>
 			<p>
 				These factors determine how a duel plays out and can both limit
 				and inform the actions that can be taken:
@@ -36,18 +40,18 @@ import Layout from '../layouts/Layout.astro';
 					>Technique, Time, Tempo, Opponent, and Terrain</span
 				>
 			</p>
-			<a href="/terms-and-concepts/core-concepts"
+			<a class="block mt-3" href="/terms-and-concepts/core-concepts"
 				>Read more about the core concepts</a
 			>
 		</article>
 		<article class="card">
-			<h3>The Fulchrum</h3>
+			<a href="/terms-and-concepts/fulcrum"><h3>The Fulcrum</h3></a>
 			<p>
 				The imaginary points (multiple!) or line in space that all
 				attacks must pass through and you aim to defend always.
 			</p>
-			<a href="/terms-and-concepts/fulchrum"
-				>Read more about the fulchrum</a
+			<a class="block mt-3" href="/terms-and-concepts/fulcrum"
+				>Read more about the fulcrum</a
 			>
 		</article>
 	</div>
