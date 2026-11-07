@@ -2,7 +2,7 @@
 	"folders":
 	[
 		{
-			"path": "."
+			"path": ".",
 		}
 	],
 	"settings":
@@ -11,12 +11,16 @@
 		{
 			"LSP-eslint":
 			{
-				"enabled": false
+				"enabled": false,
 			},
 			"LSP-typescript":
 			{
+				"enabled": false,
+			},
+			"LSP-svelte":
+			{
 				"enabled": false
-			}
-		}
-	}
+			},
+		},
+	},
 }
