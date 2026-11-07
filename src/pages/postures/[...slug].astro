@@ -1,13 +1,14 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import { ChevronsLeft } from '@lucide/astro';
+import { toSlug } from '@utils';
 import type { GetStaticPaths } from 'astro';
 import Layout from '../../layouts/Layout.astro';
 export const getStaticPaths = (async () => {
 	const postures = await getCollection('posture');
 
 	return postures.map((posture: CollectionEntry<'posture'>) => ({
-		params: { slug: posture.data.title.toLowerCase().replace(/\s/, '-') },
+		params: { slug: toSlug(posture.data.title) },
 		props: posture,
 	}));
 }) satisfies GetStaticPaths;
