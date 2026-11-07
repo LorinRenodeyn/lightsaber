@@ -1,32 +1,34 @@
 ---
 import { Check, X } from '@lucide/astro';
 import type { HTMLAttributes } from 'astro/types';
-import Lightsaber from './Lightsaber.astro';
 
 interface Props extends HTMLAttributes<'li'> {
 	rating: 'good' | 'bad';
 	title: string;
 	description: string;
 	bladeColor?: string;
+	contentClass?: string;
 }
 const {
 	rating,
 	title,
 	description,
 	bladeColor = 'var(--color-hallebardiers)',
+	contentClass = '',
 	...rest
 } = Astro.props;
+
+const slotClasses = ['flex flex-col items-center', contentClass].join(' ');
 ---
 
 <li
-	class="card flex flex-col gap-3"
+	class="card flex flex-col gap-3 justify-between"
 	style={{ '--blade-color': bladeColor }}
 	{...rest}
 >
 	<p class="font-bold mb-3">{title}</p>
-	<div class="flex flex-col items-center">
+	<div class={slotClasses}>
 		<slot />
-		<Lightsaber />
 	</div>
 	<p class="flex gap-2 text-sm items-center">
 		{rating === 'good' ? (

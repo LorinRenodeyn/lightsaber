@@ -31,6 +31,10 @@ import Layout from '../layouts/Layout.astro';
 	</ul>
 
 	<h2>Blade clash directions</h2>
+	<p class="italic">
+		Lightsaber blades are bouncy when hitting something, so the relative
+		directions when parrying are extra-important
+	</p>
 	<ul class="list-none gap-5 grid md:grid-cols-2 mt-4">
 		<DefenceCard
 			title="Right angle"
@@ -39,22 +43,27 @@ import Layout from '../layouts/Layout.astro';
 			bladeColor="var(--color-green-600)"
 		>
 			<ArrowDown class="scale-200 text-red-400 glow" />
+			<Lightsaber />
 		</DefenceCard>
 		<DefenceCard
 			title="Toward point (defender viewpoint)"
 			description="Good: the opponent's blade will slide toward the point and away from yours hands"
 			rating="good"
 			bladeColor="var(--color-green-600)"
+			contentClass="origin-center rotate-20 my-10"
 		>
 			<ArrowDownRight class="scale-200 text-red-400 glow" />
+			<Lightsaber />
 		</DefenceCard>
 		<DefenceCard
 			title="Toward handle (defender standpoint)"
 			description="Bad: the opponent's blade will slide toward your hilt, hitting
 				your hands"
 			rating="bad"
+			contentClass="origin-center -rotate-20 my-10"
 		>
 			<ArrowDownLeft class="scale-200 text-red-400 glow" />
+			<Lightsaber />
 		</DefenceCard>
 	</ul>
 </Layout>
