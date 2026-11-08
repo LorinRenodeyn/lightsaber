@@ -37,16 +37,14 @@ const links = [
 			inert={hideNav}
 		>
 			<!-- flex justify-center flex-wrap gap-3 md:gap-4 max-w-[80ch] px-5 -->
-			<ul
-				class="flex justify-stretch w-full  shadow-md shadow-hallebardiers-bright/60 rounded-sm overflow-hidden"
-			>
+			<ul class="flex justify-stretch w-full gap-2">
 				{links.map((link) => {
 					const isCurrent = isOnPath(Astro.url.pathname, link.href);
 					return (
 						<li class="grow-1">
 							{/* block text-center px-3 md:py-2 text-shadow-hallebardiers-bright/40 hover:text-shadow-lg aria-current:italic aria-current:text-shadow-hallebardiers/40 aria-current:text-hallebardiers-bright aria-current:text-shadow-lg navlink inset-shadow-md shadow-hallebardiers-bright/40*/}
 							<a
-								class="h-full flex flex-col justify-center border border-hallebardiers italic text-center px-4 pt-2 pb-4 text-hallebardiers-bright bg-neutral-950 inset-shadow-sm [--tw-inset-shadow:_inset_0_-4px_12px_var(--tw-inset-shadow-color,_#0000000d)] inset-shadow-hallebardiers-bright/60 aria-current:not-italic text-shadow-hallebardiers-bright/40  aria-current:text-shadow-lg aria-current:text-hallebardiers-accent aria-current:not-focus:brightness-150 hover:brightness-250 focus:brightness-250 focus:outline-none"
+								class="h-full rounded-sm flex flex-col justify-center border border-hallebardiers italic text-center px-4 pt-2 pb-4 text-hallebardiers-bright bg-neutral-950 inset-shadow-sm shadow-hallebardiers-bright/40 [--tw-inset-shadow:_inset_0_-4px_12px_var(--tw-inset-shadow-color,_#0000000d)] inset-shadow-hallebardiers-bright/60 aria-current:not-italic text-shadow-hallebardiers-bright/40  aria-current:text-shadow-lg aria-current:text-hallebardiers-accent aria-current:not-focus:brightness-150 hover:brightness-250 focus:brightness-250 focus:outline-none hover:shadow-md focus:shadow-md"
 								href={link.href}
 								aria-current={isCurrent}
 							>
