@@ -1,9 +1,13 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Picture } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { toSlug } from '../../utils';
+import { containsPartial, toSlug } from '../../utils';
 
-const renderer = async (posture) => {
+type Posture = CollectionEntry<'posture'>;
+const postureRenderer = async (posture: Posture) => {
 	const { Content } = await render(posture);
 	return {
 		Content,
@@ -12,32 +16,81 @@ const renderer = async (posture) => {
 		title: posture.data.title,
 	};
 };
-const sorter = (a, b) => a.data.title.localeCompare(b.data.title, 'en');
+const sorter = (a: Posture, b: Posture) =>
+	a.data.title.localeCompare(b.data.title, 'en');
 
 const postures = await getCollection('posture');
 const sortedPostures = postures.toSorted(sorter);
-const renderedPostures = await Promise.all(sortedPostures.map(renderer));
+const renderedPostures = await Promise.all(sortedPostures.map(postureRenderer));
+
+const stanceImages = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/*.{jpeg,jpg,png,gif}',
+);
+type ImageRecord = typeof stanceImages;
+const stanceRenderer =
+	(imageRecord: ImageRecord) => async (stance: CollectionEntry<'stance'>) => {
+		const { Content } = await render(stance);
+		const imageKey = Object.keys(imageRecord).find((key) =>
+			containsPartial(stance.data.imageSlug, key),
+		);
+		return {
+			Content,
+			id: stance.id,
+			image: imageRecord[imageKey ?? ''],
+			title: stance.data.title,
+		};
+	};
+
+const stances = await getCollection('stance');
+const renderedStances = await Promise.all(
+	stances.map(stanceRenderer(stanceImages)),
+);
+console.log('renderedstances', renderedStances);
 ---
 
 <Layout showBreadCrumbs>
-	<h1>Postures</h1>
+	<h1>Postures & Stances</h1>
+	<h2>Stances</h2>
+	<p>
+		How you hold yourself with regard to the opponent, the postures fall
+		into the various stance categories
+	</p>
+	<ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+		{renderedStances.map((stance) => (
+			<li class="card">
+				<h3>{stance.title}</h3>
+				{stance.image && (
+					<Picture
+						src={stance.image()}
+						alt={`Visual representation of a ${stance.title}`}
+						densities={[1.5, 2]}
+						fit="contain"
+						class="mb-3 holo-filter"
+					/>
+				)}
+				<stance.Content />
+			</li>
+		))}
+	</ul>
 
+	<h2>Postures</h2>
+	<p>
+		A set of poses that you can start from, move through or end up in at
+		various stages of executing a fencing move
+	</p>
 	<ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-		{renderedPostures.map((posture) => {
-			const { Content } = posture;
-			return (
-				<li class="card">
-					<a
-						href={`/postures/${posture.slug}`}
-						class="font-bold text-lg block"
-					>
-						{posture.title}
-					</a>
-					<div class="text-sm italic">
-						<Content />
-					</div>
-				</li>
-			);
-		})}
+		{renderedPostures.map((posture) => (
+			<li class="card">
+				<a
+					href={`/postures/${posture.slug}`}
+					class="font-bold text-lg block"
+				>
+					{posture.title}
+				</a>
+				<div class="text-sm italic">
+					<posture.Content />
+				</div>
+			</li>
+		))}
 	</ul>
 </Layout>
