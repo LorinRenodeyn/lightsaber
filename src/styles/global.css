@@ -89,6 +89,11 @@
 		margin-block-end: revert;
 		padding-inline-start: revert;
 	}
+	:focus-visible {
+		outline: 2px solid var(--color-hallebardiers-accent);
+		border-radius: var(--spacing);
+		outline-offset: var(--spacing);
+	}
 }
 
 @layer utilities {
@@ -110,7 +115,8 @@
 		padding: calc(var(--spacing) * 3);
 		@apply transition-all duration-200;
 
-		&:hover {
+		&:hover,
+		&:focus-within {
 			@apply shadow-lg shadow-hallebardiers-bright;
 		}
 
