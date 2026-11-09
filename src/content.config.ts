@@ -11,6 +11,16 @@ const posture = defineCollection({
 	},
 });
 
+const stance = defineCollection({
+	loader: glob({ base: './src/content/stances', pattern: '**/*.{md,mdx}' }),
+	schema: (context) => {
+		return z.object({
+			imageSlug: z.string(),
+			title: z.string(),
+		});
+	},
+});
+
 const coreConcept = defineCollection({
 	loader: glob({
 		base: './src/content/core-concepts',
@@ -24,4 +34,4 @@ const coreConcept = defineCollection({
 	},
 });
 
-export const collections = { coreConcept, posture };
+export const collections = { coreConcept, posture, stance };
