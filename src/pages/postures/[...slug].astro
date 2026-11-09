@@ -1,6 +1,7 @@
 ---
 import { toSlug } from '@utils';
-import type { GetStaticPaths } from 'astro';
+import type { GetStaticPaths, ImageMetadata } from 'astro';
+import { Picture } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 export const getStaticPaths = (async () => {
@@ -13,10 +14,32 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 type Props = CollectionEntry<'posture'>;
 const posture = Astro.props;
+const imageSlug = toSlug(posture.data.title ?? '');
 const { Content } = await render(posture);
+const images = import.meta.glob<{ default: ImageMetadata }>(
+	`/src/assets/*.{jpeg,jpg,png,gif}`,
+);
+const imageKey = Object.keys(images).find((key) =>
+	new RegExp(imageSlug).test(key),
+);
+
+console.log('images?', imageSlug, images, imageKey);
 ---
 
 <Layout showBreadCrumbs>
 	<h1>{posture.data.title}</h1>
 	<Content />
+	{imageKey && images[imageKey] ? (
+		<Picture
+			src={images[imageKey]()}
+			alt={`Visual representation of the ${posture.data.title} posture by a battle droid`}
+			densities={[1.5, 2]}
+			formats={['avif', 'webp']}
+			priority
+		/>
+	) : (
+		<p class="text-hallebardiers-accent italic text-sm">
+			Image coming soon™...
+		</p>
+	)}
 </Layout>
