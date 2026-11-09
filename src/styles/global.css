@@ -97,6 +97,9 @@
 		filter: drop-shadow(var(--shadow-size) var(--color-hallebardiers))
 			brightness(3);
 	}
+	.holo-filter {
+		filter: sepia(0.2) saturate(17) hue-rotate(160deg) opacity(0.75);
+	}
 }
 
 @layer components {
