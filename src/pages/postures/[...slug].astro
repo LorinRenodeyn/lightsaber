@@ -1,9 +1,10 @@
 ---
-import { toSlug } from '@utils';
+import { containsPartial, toSlug } from '@utils';
 import type { GetStaticPaths, ImageMetadata } from 'astro';
 import { Picture } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+
 export const getStaticPaths = (async () => {
 	const postures = await getCollection('posture');
 
@@ -20,10 +21,8 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 	`/src/assets/*.{jpeg,jpg,png,gif}`,
 );
 const imageKey = Object.keys(images).find((key) =>
-	new RegExp(imageSlug).test(key),
+	containsPartial(imageSlug, key),
 );
-
-console.log('images?', imageSlug, images, imageKey);
 ---
 
 <Layout showBreadCrumbs>
@@ -36,6 +35,7 @@ console.log('images?', imageSlug, images, imageKey);
 			densities={[1.5, 2]}
 			formats={['avif', 'webp']}
 			priority
+			class="holo-filter"
 		/>
 	) : (
 		<p class="text-hallebardiers-accent italic text-sm">
