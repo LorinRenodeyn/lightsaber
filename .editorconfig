@@ -9,3 +9,7 @@ trim_trailing_whitespace = true
 quote_type = single
 spaces_around_operators = true
 max_line_length = 100
+
+[*.{yml,yaml}]
+indent_size = 2
+indent_style = space

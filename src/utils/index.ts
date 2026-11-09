@@ -1,4 +1,5 @@
-export const toSlug = (text: string) => text.toLowerCase().replace(/\s+/, '-');
+export const toSlug = (text: string) =>
+	text.toLowerCase().replace(/\s+/gi, '-');
 export const isOnPath = (path: string, reference: string) => {
 	if (!path) return false;
 	if (reference === '/') return path === reference;
@@ -6,3 +7,5 @@ export const isOnPath = (path: string, reference: string) => {
 };
 export const getChildPath = (text: string, pagePath: string) =>
 	!text ? '/' : `${pagePath ?? ''}/${toSlug(text)}`;
+export const containsPartial = (partial: string, text: string) =>
+	new RegExp(partial).test(text);

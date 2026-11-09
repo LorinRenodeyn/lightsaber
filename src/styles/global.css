@@ -89,6 +89,11 @@
 		margin-block-end: revert;
 		padding-inline-start: revert;
 	}
+	:focus-visible {
+		outline: 2px solid var(--color-hallebardiers-accent);
+		border-radius: var(--spacing);
+		outline-offset: var(--spacing);
+	}
 }
 
 @layer utilities {
@@ -96,6 +101,9 @@
 		--shadow-size: 0 0 20px;
 		filter: drop-shadow(var(--shadow-size) var(--color-hallebardiers))
 			brightness(3);
+	}
+	.holo-filter {
+		filter: sepia(0.2) saturate(17) hue-rotate(160deg) opacity(0.75);
 	}
 }
 
@@ -107,7 +115,8 @@
 		padding: calc(var(--spacing) * 3);
 		@apply transition-all duration-200;
 
-		&:hover {
+		&:hover,
+		&:focus-within {
 			@apply shadow-lg shadow-hallebardiers-bright;
 		}
 
