@@ -6,8 +6,11 @@ import { isOnPath } from '../utils';
 interface Props {
 	hideNav?: boolean;
 	showBreadCrumbs?: boolean;
+	frontmatter?: any;
 }
-const { hideNav, showBreadCrumbs } = Astro.props;
+let { hideNav, showBreadCrumbs, frontmatter } = Astro.props;
+hideNav = hideNav ?? frontmatter?.hideNav;
+showBreadCrumbs = showBreadCrumbs ?? frontmatter?.showBreadCrumbs;
 
 const links = [
 	{ href: '/', label: 'Home' },
