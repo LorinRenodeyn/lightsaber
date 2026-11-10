@@ -1,0 +1,17 @@
+---
+import Layout from '@layouts/Layout.astro';
+
+interface Props {
+	error: unknown;
+}
+
+const { error } = Astro.props;
+---
+
+<Layout hideNav>
+	<section class="flex flex-col justify-center items-center">
+		<h1>We're doomed!</h1>
+		<div>{error instanceof Error ? error.message : 'Unknown error'}</div>
+		<p><a href="/">Go back to main page</a></p>
+	</section>
+</Layout>
