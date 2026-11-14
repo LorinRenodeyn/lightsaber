@@ -19,7 +19,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@lucide/astro": "^1.68.0",
     "@tailwindcss/vite": "^4.3.4",
-    "astro": "^7.4.5",
+    "astro": "^7.4.7",
     "tailwindcss": "^4.3.4",
     "wrangler": "^4.158.0"
   },
